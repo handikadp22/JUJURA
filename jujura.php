@@ -13,8 +13,8 @@ function curl($url, $datas){
 }
 
 // Data Parameter yang Dikirim oleh cURL
-$datas = array("user_name"=>"HandikaDwi",
-			  "user_email"=>"Handika@tester.com");
+$datas = array("user_name"=>"Arif",
+			  "user_email"=>"Arif@tester.com");
 $send = curl("https://recruitment.jujura.id/api/register",json_encode($datas));
 
 
@@ -24,6 +24,8 @@ $datas = json_decode($send, TRUE);
 echo "<pre>";
 print_r($datas);
 echo "</pre>";
+
+
 
 //PRODUK
 function curly($url){
@@ -43,59 +45,58 @@ $data = json_decode($send, TRUE);
 echo "<pre>";
 print_r($data);
 echo "</pre>";
-// $url = 'https://recruitment.jujura.id/api/product';
-
-// echo httpGet($url);
-
-// //print_r(httpGet($url));
-
-// function httpGet($url)
-// {
-//     $ch = curl_init();  
- 
-//     curl_setopt($ch,CURLOPT_URL,$url);
-//     curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
-// //  curl_setopt($ch,CURLOPT_HEADER, false); 
- 
-//     $output=curl_exec($ch);
- 
-//     curl_close($ch);
-//     return $output;
-//     $profile = json_decode($url,true);
-// echo "<pre>";
-// print_r($profile);
-// echo "</pre>";
-// }
 
 
-// //SALES INSERT
-// function curll($url, $data){
-//     $cht = curl_init(); 
-//     curl_setopt($cht, CURLOPT_URL, $url);
-//     curl_setopt($cht, CURLOPT_CUSTOMREQUEST, "POST");
-//     curl_setopt($cht, CURLOPT_POSTFIELDS, $data);
-//     curl_setopt($cht, CURLOPT_RETURNTRANSFER, 1); 
-//     $output = curl_exec($cht); 
-//     curl_close($cht);      
-//     return $output;
-// }
+//SALES INSERT
+function sales_insert($url, $sales){
+    $cht = curl_init(); 
+    curl_setopt($cht, CURLOPT_URL, $url);
+    curl_setopt($cht, CURLOPT_CUSTOMREQUEST, "POST");
+    curl_setopt($cht, CURLOPT_POSTFIELDS, $sales);
+    curl_setopt($cht, CURLOPT_RETURNTRANSFER, 1); 
+    $output = curl_exec($cht); 
+    curl_close($cht);      
+    return $output;
+}
 
-// // Data Parameter yang Dikirim oleh cURL
-// $data =array("signature_key "=>"dec1f9a360de6fc4e1dc61b96e173f49",
-// 		"payment_type "=>"ECHANNEL",
-// 		"gross_amount"=>1500,
-// 		"currency "=>"IDR",
-// 		"items"=>array("item_id"=>"ABC",
-// 				  "qty"=>2,
-// 				  "price"=>"1500",
-// 				  "total"=>'3000')
-// 		);
-// $send = curl("https://recruitment.jujura.id/api/sales/insert",json_encode($data));
+// Data sales yang Dikirim oleh cURL
+$sales =array("signature_key"=>"a1d8c6714905470b338635050e21c12f",
+		"payment_type"=>"ECHANNEL",
+		"gross_amount"=>1500,
+		"currency"=>"IDR",
+		"items"=>array("item_id"=>"Fixadura",
+				  		"qty"=>2,
+				  		"price"=>150000,
+				  		"total"=>300000)
+		);
+$send = sales_insert("https://recruitment.jujura.id/api/sales/insert",json_encode($sales));
 
-// echo json_encode(array('respon'=>$send),JSON_UNESCAPED_SLASHES);
+$sales=  json_encode(array('respon'=>$send),JSON_UNESCAPED_SLASHES);
 
+echo "<pre>";
+print_r($sales);
+echo "</pre>"; 
 
-// //extract data from the post
-// extract($_POST);
+//LIST SALES
+function sales($url, $lists){
+    $ch = curl_init(); 
+    curl_setopt($ch, CURLOPT_URL, $url); 
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $lists);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+    $output = curl_exec($ch); 
+    curl_close($ch);      
+    return $output;
+}
+$lists =array("signature_key"=>"a1d8c6714905470b338635050e21c12f");
+
+$send = sales("https://recruitment.jujura.id/api/sales",json_encode($lists));
+
+// mengubah JSON menjadi array
+$lists = json_decode($send, TRUE);
+
+echo "<pre>";
+print_r($lists);
+echo "</pre>";
 
 ?>
